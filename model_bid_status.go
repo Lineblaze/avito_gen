@@ -20,11 +20,11 @@ type BidStatus string
 
 // List of bidStatus
 const (
-	CREATED   BidStatus = "Created"
-	PUBLISHED BidStatus = "Published"
-	CANCELED  BidStatus = "Canceled"
-	APPROVED  BidStatus = "Approved"
-	REJECTED  BidStatus = "Rejected"
+	BidStatusCREATED   BidStatus = "Created"
+	BidStatusPUBLISHED BidStatus = "Published"
+	BidStatusCANCELED  BidStatus = "Canceled"
+	BidStatusAPPROVED  BidStatus = "Approved"
+	BidStatusREJECTED  BidStatus = "Rejected"
 )
 
 // All allowed values of BidStatus enum

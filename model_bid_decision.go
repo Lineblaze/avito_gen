@@ -20,8 +20,8 @@ type BidDecision string
 
 // List of bidDecision
 const (
-	APPROVED BidDecision = "Approved"
-	REJECTED BidDecision = "Rejected"
+	BidDecisionAPPROVED BidDecision = "Approved"
+	BidDecisionREJECTED BidDecision = "Rejected"
 )
 
 // All allowed values of BidDecision enum
