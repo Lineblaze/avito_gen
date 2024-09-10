@@ -20,6 +20,7 @@ type TenderStatus string
 
 // List of tenderStatus
 const (
+	OPEN      TenderStatus = "Open"
 	CREATED   TenderStatus = "Created"
 	PUBLISHED TenderStatus = "Published"
 	CLOSED    TenderStatus = "Closed"
@@ -27,6 +28,7 @@ const (
 
 // All allowed values of TenderStatus enum
 var AllowedTenderStatusEnumValues = []TenderStatus{
+	"Open",
 	"Created",
 	"Published",
 	"Closed",
