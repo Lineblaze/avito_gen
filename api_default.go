@@ -1,7 +1,7 @@
 /*
 Tender Management API
 
-API для управления тендерами и предложениями.   Основные функции API включают управление тендерами (создание, изменение, получение списка) и управление предложениями (создание, изменение, получение списка).
+API для управления тендерами и предложениями.   Основные функции API включают управление тендерами (создание, изменение, получение списка) и управление предложениями (создание, изменение, получение списка). 
 
 API version: 1.0
 */
@@ -16,15 +16,16 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"reflect"
 	"strings"
+	"reflect"
 )
+
 
 // DefaultApiService DefaultApi service
 type DefaultApiService service
 
 type ApiCheckServerRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService *DefaultApiService
 }
 
@@ -35,29 +36,29 @@ func (r ApiCheckServerRequest) Execute() (string, *http.Response, error) {
 /*
 CheckServer Проверка доступности сервера
 
-Этот эндпоинт используется для проверки готовности сервера обрабатывать запросы.
+Этот эндпоинт используется для проверки готовности сервера обрабатывать запросы. 
 
 Чекер программа будет ждать первый успешный ответ и затем начнет выполнение тестовых сценариев.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiCheckServerRequest
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiCheckServerRequest
 */
 func (a *DefaultApiService) CheckServer(ctx context.Context) ApiCheckServerRequest {
 	return ApiCheckServerRequest{
 		ApiService: a,
-		ctx:        ctx,
+		ctx: ctx,
 	}
 }
 
 // Execute executes the request
-//
-//	@return string
+//  @return string
 func (a *DefaultApiService) CheckServerExecute(r ApiCheckServerRequest) (string, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue string
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  string
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.CheckServer")
@@ -136,8 +137,8 @@ func (a *DefaultApiService) CheckServerExecute(r ApiCheckServerRequest) (string,
 }
 
 type ApiCreateBidRequest struct {
-	ctx              context.Context
-	ApiService       *DefaultApiService
+	ctx context.Context
+	ApiService *DefaultApiService
 	createBidRequest *CreateBidRequest
 }
 
@@ -156,25 +157,24 @@ CreateBid Создание нового предложения
 
 Создание предложения для существующего тендера.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiCreateBidRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiCreateBidRequest
 */
 func (a *DefaultApiService) CreateBid(ctx context.Context) ApiCreateBidRequest {
 	return ApiCreateBidRequest{
 		ApiService: a,
-		ctx:        ctx,
+		ctx: ctx,
 	}
 }
 
 // Execute executes the request
-//
-//	@return Bid
+//  @return Bid
 func (a *DefaultApiService) CreateBidExecute(r ApiCreateBidRequest) (*Bid, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *Bid
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *Bid
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.CreateBid")
@@ -267,9 +267,271 @@ func (a *DefaultApiService) CreateBidExecute(r ApiCreateBidRequest) (*Bid, *http
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+type ApiCreateEmployeeRequest struct {
+	ctx context.Context
+	ApiService *DefaultApiService
+	createEmployeeRequest *CreateEmployeeRequest
+}
+
+// Данные нового пользователя.
+func (r ApiCreateEmployeeRequest) CreateEmployeeRequest(createEmployeeRequest CreateEmployeeRequest) ApiCreateEmployeeRequest {
+	r.createEmployeeRequest = &createEmployeeRequest
+	return r
+}
+
+func (r ApiCreateEmployeeRequest) Execute() (*Employee, *http.Response, error) {
+	return r.ApiService.CreateEmployeeExecute(r)
+}
+
+/*
+CreateEmployee Создание нового пользователя
+
+Создание нового пользователя с заданными параметрами.
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiCreateEmployeeRequest
+*/
+func (a *DefaultApiService) CreateEmployee(ctx context.Context) ApiCreateEmployeeRequest {
+	return ApiCreateEmployeeRequest{
+		ApiService: a,
+		ctx: ctx,
+	}
+}
+
+// Execute executes the request
+//  @return Employee
+func (a *DefaultApiService) CreateEmployeeExecute(r ApiCreateEmployeeRequest) (*Employee, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *Employee
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.CreateEmployee")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/employeee/new"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.createEmployeeRequest == nil {
+		return localVarReturnValue, nil, reportError("createEmployeeRequest is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.createEmployeeRequest
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v ErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 401 {
+			var v ErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiCreateOrganizationRequest struct {
+	ctx context.Context
+	ApiService *DefaultApiService
+	createOrganizationRequest *CreateOrganizationRequest
+}
+
+// Данные нового  новой организации.
+func (r ApiCreateOrganizationRequest) CreateOrganizationRequest(createOrganizationRequest CreateOrganizationRequest) ApiCreateOrganizationRequest {
+	r.createOrganizationRequest = &createOrganizationRequest
+	return r
+}
+
+func (r ApiCreateOrganizationRequest) Execute() (*Organization, *http.Response, error) {
+	return r.ApiService.CreateOrganizationExecute(r)
+}
+
+/*
+CreateOrganization Создание новой организации
+
+Создание новой организации с заданными параметрами.
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiCreateOrganizationRequest
+*/
+func (a *DefaultApiService) CreateOrganization(ctx context.Context) ApiCreateOrganizationRequest {
+	return ApiCreateOrganizationRequest{
+		ApiService: a,
+		ctx: ctx,
+	}
+}
+
+// Execute executes the request
+//  @return Organization
+func (a *DefaultApiService) CreateOrganizationExecute(r ApiCreateOrganizationRequest) (*Organization, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *Organization
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.CreateOrganization")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/organization/new"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.createOrganizationRequest == nil {
+		return localVarReturnValue, nil, reportError("createOrganizationRequest is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.createOrganizationRequest
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v ErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 401 {
+			var v ErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type ApiCreateTenderRequest struct {
-	ctx                 context.Context
-	ApiService          *DefaultApiService
+	ctx context.Context
+	ApiService *DefaultApiService
 	createTenderRequest *CreateTenderRequest
 }
 
@@ -288,25 +550,24 @@ CreateTender Создание нового тендера
 
 Создание нового тендера с заданными параметрами.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiCreateTenderRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiCreateTenderRequest
 */
 func (a *DefaultApiService) CreateTender(ctx context.Context) ApiCreateTenderRequest {
 	return ApiCreateTenderRequest{
 		ApiService: a,
-		ctx:        ctx,
+		ctx: ctx,
 	}
 }
 
 // Execute executes the request
-//
-//	@return Tender
+//  @return Tender
 func (a *DefaultApiService) CreateTenderExecute(r ApiCreateTenderRequest) (*Tender, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *Tender
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *Tender
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.CreateTender")
@@ -400,10 +661,10 @@ func (a *DefaultApiService) CreateTenderExecute(r ApiCreateTenderRequest) (*Tend
 }
 
 type ApiEditBidRequest struct {
-	ctx            context.Context
-	ApiService     *DefaultApiService
-	bidId          string
-	username       *string
+	ctx context.Context
+	ApiService *DefaultApiService
+	bidId string
+	username *string
 	editBidRequest *EditBidRequest
 }
 
@@ -412,7 +673,7 @@ func (r ApiEditBidRequest) Username(username string) ApiEditBidRequest {
 	return r
 }
 
-// Перечисление параметров и их новых значений для обновления предложения.  Если значение не передано, оно останется без изменений.
+// Перечисление параметров и их новых значений для обновления предложения.  Если значение не передано, оно останется без изменений. 
 func (r ApiEditBidRequest) EditBidRequest(editBidRequest EditBidRequest) ApiEditBidRequest {
 	r.editBidRequest = &editBidRequest
 	return r
@@ -427,27 +688,26 @@ EditBid Редактирование параметров предложения
 
 Редактирование существующего предложения.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param bidId
-	@return ApiEditBidRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param bidId
+ @return ApiEditBidRequest
 */
 func (a *DefaultApiService) EditBid(ctx context.Context, bidId string) ApiEditBidRequest {
 	return ApiEditBidRequest{
 		ApiService: a,
-		ctx:        ctx,
-		bidId:      bidId,
+		ctx: ctx,
+		bidId: bidId,
 	}
 }
 
 // Execute executes the request
-//
-//	@return Bid
+//  @return Bid
 func (a *DefaultApiService) EditBidExecute(r ApiEditBidRequest) (*Bid, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPatch
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *Bid
+		localVarHTTPMethod   = http.MethodPatch
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *Bid
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.EditBid")
@@ -549,10 +809,10 @@ func (a *DefaultApiService) EditBidExecute(r ApiEditBidRequest) (*Bid, *http.Res
 }
 
 type ApiEditTenderRequest struct {
-	ctx               context.Context
-	ApiService        *DefaultApiService
-	tenderId          string
-	username          *string
+	ctx context.Context
+	ApiService *DefaultApiService
+	tenderId string
+	username *string
 	editTenderRequest *EditTenderRequest
 }
 
@@ -561,7 +821,7 @@ func (r ApiEditTenderRequest) Username(username string) ApiEditTenderRequest {
 	return r
 }
 
-// Перечисление параметров и их новых значений для обновления тендера.  Если значение не передано, оно останется без изменений.
+// Перечисление параметров и их новых значений для обновления тендера.  Если значение не передано, оно останется без изменений. 
 func (r ApiEditTenderRequest) EditTenderRequest(editTenderRequest EditTenderRequest) ApiEditTenderRequest {
 	r.editTenderRequest = &editTenderRequest
 	return r
@@ -576,27 +836,26 @@ EditTender Редактирование тендера
 
 Изменение параметров существующего тендера.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param tenderId
-	@return ApiEditTenderRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param tenderId
+ @return ApiEditTenderRequest
 */
 func (a *DefaultApiService) EditTender(ctx context.Context, tenderId string) ApiEditTenderRequest {
 	return ApiEditTenderRequest{
 		ApiService: a,
-		ctx:        ctx,
-		tenderId:   tenderId,
+		ctx: ctx,
+		tenderId: tenderId,
 	}
 }
 
 // Execute executes the request
-//
-//	@return Tender
+//  @return Tender
 func (a *DefaultApiService) EditTenderExecute(r ApiEditTenderRequest) (*Tender, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPatch
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *Tender
+		localVarHTTPMethod   = http.MethodPatch
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *Tender
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.EditTender")
@@ -698,13 +957,13 @@ func (a *DefaultApiService) EditTenderExecute(r ApiEditTenderRequest) (*Tender, 
 }
 
 type ApiGetBidReviewsRequest struct {
-	ctx               context.Context
-	ApiService        *DefaultApiService
-	tenderId          string
-	authorUsername    *string
+	ctx context.Context
+	ApiService *DefaultApiService
+	tenderId string
+	authorUsername *string
 	requesterUsername *string
-	limit             *int32
-	offset            *int32
+	limit *int32
+	offset *int32
 }
 
 // Имя пользователя автора предложений, отзывы на которые нужно просмотреть.
@@ -719,13 +978,13 @@ func (r ApiGetBidReviewsRequest) RequesterUsername(requesterUsername string) Api
 	return r
 }
 
-// Максимальное число возвращаемых объектов. Используется для запросов с пагинацией.  Сервер должен возвращать максимальное допустимое число объектов.
+// Максимальное число возвращаемых объектов. Используется для запросов с пагинацией.  Сервер должен возвращать максимальное допустимое число объектов. 
 func (r ApiGetBidReviewsRequest) Limit(limit int32) ApiGetBidReviewsRequest {
 	r.limit = &limit
 	return r
 }
 
-// Какое количество объектов должно быть пропущено с начала. Используется для запросов с пагинацией.
+// Какое количество объектов должно быть пропущено с начала. Используется для запросов с пагинацией. 
 func (r ApiGetBidReviewsRequest) Offset(offset int32) ApiGetBidReviewsRequest {
 	r.offset = &offset
 	return r
@@ -740,27 +999,26 @@ GetBidReviews Просмотр отзывов на прошлые предлож
 
 Ответственный за организацию может посмотреть прошлые отзывы на предложения автора, который создал предложение для его тендера.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param tenderId
-	@return ApiGetBidReviewsRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param tenderId
+ @return ApiGetBidReviewsRequest
 */
 func (a *DefaultApiService) GetBidReviews(ctx context.Context, tenderId string) ApiGetBidReviewsRequest {
 	return ApiGetBidReviewsRequest{
 		ApiService: a,
-		ctx:        ctx,
-		tenderId:   tenderId,
+		ctx: ctx,
+		tenderId: tenderId,
 	}
 }
 
 // Execute executes the request
-//
-//	@return []BidReview
+//  @return []BidReview
 func (a *DefaultApiService) GetBidReviewsExecute(r ApiGetBidReviewsRequest) ([]BidReview, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue []BidReview
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  []BidReview
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.GetBidReviews")
@@ -887,10 +1145,10 @@ func (a *DefaultApiService) GetBidReviewsExecute(r ApiGetBidReviewsRequest) ([]B
 }
 
 type ApiGetBidStatusRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService *DefaultApiService
-	bidId      string
-	username   *string
+	bidId string
+	username *string
 }
 
 func (r ApiGetBidStatusRequest) Username(username string) ApiGetBidStatusRequest {
@@ -907,27 +1165,26 @@ GetBidStatus Получение текущего статуса предложе
 
 Получить статус предложения по его уникальному идентификатору.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param bidId
-	@return ApiGetBidStatusRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param bidId
+ @return ApiGetBidStatusRequest
 */
 func (a *DefaultApiService) GetBidStatus(ctx context.Context, bidId string) ApiGetBidStatusRequest {
 	return ApiGetBidStatusRequest{
 		ApiService: a,
-		ctx:        ctx,
-		bidId:      bidId,
+		ctx: ctx,
+		bidId: bidId,
 	}
 }
 
 // Execute executes the request
-//
-//	@return BidStatus
+//  @return BidStatus
 func (a *DefaultApiService) GetBidStatusExecute(r ApiGetBidStatusRequest) (*BidStatus, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *BidStatus
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *BidStatus
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.GetBidStatus")
@@ -1024,12 +1281,12 @@ func (a *DefaultApiService) GetBidStatusExecute(r ApiGetBidStatusRequest) (*BidS
 }
 
 type ApiGetBidsForTenderRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService *DefaultApiService
-	tenderId   string
-	username   *string
-	limit      *int32
-	offset     *int32
+	tenderId string
+	username *string
+	limit *int32
+	offset *int32
 }
 
 func (r ApiGetBidsForTenderRequest) Username(username string) ApiGetBidsForTenderRequest {
@@ -1037,13 +1294,13 @@ func (r ApiGetBidsForTenderRequest) Username(username string) ApiGetBidsForTende
 	return r
 }
 
-// Максимальное число возвращаемых объектов. Используется для запросов с пагинацией.  Сервер должен возвращать максимальное допустимое число объектов.
+// Максимальное число возвращаемых объектов. Используется для запросов с пагинацией.  Сервер должен возвращать максимальное допустимое число объектов. 
 func (r ApiGetBidsForTenderRequest) Limit(limit int32) ApiGetBidsForTenderRequest {
 	r.limit = &limit
 	return r
 }
 
-// Какое количество объектов должно быть пропущено с начала. Используется для запросов с пагинацией.
+// Какое количество объектов должно быть пропущено с начала. Используется для запросов с пагинацией. 
 func (r ApiGetBidsForTenderRequest) Offset(offset int32) ApiGetBidsForTenderRequest {
 	r.offset = &offset
 	return r
@@ -1058,27 +1315,26 @@ GetBidsForTender Получение списка предложений для �
 
 Получение предложений, связанных с указанным тендером.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param tenderId
-	@return ApiGetBidsForTenderRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param tenderId
+ @return ApiGetBidsForTenderRequest
 */
 func (a *DefaultApiService) GetBidsForTender(ctx context.Context, tenderId string) ApiGetBidsForTenderRequest {
 	return ApiGetBidsForTenderRequest{
 		ApiService: a,
-		ctx:        ctx,
-		tenderId:   tenderId,
+		ctx: ctx,
+		tenderId: tenderId,
 	}
 }
 
 // Execute executes the request
-//
-//	@return []Bid
+//  @return []Bid
 func (a *DefaultApiService) GetBidsForTenderExecute(r ApiGetBidsForTenderRequest) ([]Bid, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue []Bid
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  []Bid
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.GetBidsForTender")
@@ -1201,10 +1457,10 @@ func (a *DefaultApiService) GetBidsForTenderExecute(r ApiGetBidsForTenderRequest
 }
 
 type ApiGetTenderStatusRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService *DefaultApiService
-	tenderId   string
-	username   *string
+	tenderId string
+	username *string
 }
 
 func (r ApiGetTenderStatusRequest) Username(username string) ApiGetTenderStatusRequest {
@@ -1221,27 +1477,26 @@ GetTenderStatus Получение текущего статуса тендер�
 
 Получить статус тендера по его уникальному идентификатору.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param tenderId
-	@return ApiGetTenderStatusRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param tenderId
+ @return ApiGetTenderStatusRequest
 */
 func (a *DefaultApiService) GetTenderStatus(ctx context.Context, tenderId string) ApiGetTenderStatusRequest {
 	return ApiGetTenderStatusRequest{
 		ApiService: a,
-		ctx:        ctx,
-		tenderId:   tenderId,
+		ctx: ctx,
+		tenderId: tenderId,
 	}
 }
 
 // Execute executes the request
-//
-//	@return TenderStatus
+//  @return TenderStatus
 func (a *DefaultApiService) GetTenderStatusExecute(r ApiGetTenderStatusRequest) (*TenderStatus, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *TenderStatus
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *TenderStatus
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.GetTenderStatus")
@@ -1337,26 +1592,26 @@ func (a *DefaultApiService) GetTenderStatusExecute(r ApiGetTenderStatusRequest) 
 }
 
 type ApiGetTendersRequest struct {
-	ctx         context.Context
-	ApiService  *DefaultApiService
-	limit       *int32
-	offset      *int32
+	ctx context.Context
+	ApiService *DefaultApiService
+	limit *int32
+	offset *int32
 	serviceType *[]TenderServiceType
 }
 
-// Максимальное число возвращаемых объектов. Используется для запросов с пагинацией.  Сервер должен возвращать максимальное допустимое число объектов.
+// Максимальное число возвращаемых объектов. Используется для запросов с пагинацией.  Сервер должен возвращать максимальное допустимое число объектов. 
 func (r ApiGetTendersRequest) Limit(limit int32) ApiGetTendersRequest {
 	r.limit = &limit
 	return r
 }
 
-// Какое количество объектов должно быть пропущено с начала. Используется для запросов с пагинацией.
+// Какое количество объектов должно быть пропущено с начала. Используется для запросов с пагинацией. 
 func (r ApiGetTendersRequest) Offset(offset int32) ApiGetTendersRequest {
 	r.offset = &offset
 	return r
 }
 
-// Возвращенные тендеры должны соответствовать указанным видам услуг.  Если список пустой, фильтры не применяются.
+// Возвращенные тендеры должны соответствовать указанным видам услуг.  Если список пустой, фильтры не применяются. 
 func (r ApiGetTendersRequest) ServiceType(serviceType []TenderServiceType) ApiGetTendersRequest {
 	r.serviceType = &serviceType
 	return r
@@ -1373,25 +1628,25 @@ GetTenders Получение списка тендеров
 
 Если фильтры не заданы, возвращаются все тендеры.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiGetTendersRequest
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiGetTendersRequest
 */
 func (a *DefaultApiService) GetTenders(ctx context.Context) ApiGetTendersRequest {
 	return ApiGetTendersRequest{
 		ApiService: a,
-		ctx:        ctx,
+		ctx: ctx,
 	}
 }
 
 // Execute executes the request
-//
-//	@return []Tender
+//  @return []Tender
 func (a *DefaultApiService) GetTendersExecute(r ApiGetTendersRequest) ([]Tender, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue []Tender
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  []Tender
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.GetTenders")
@@ -1487,20 +1742,20 @@ func (a *DefaultApiService) GetTendersExecute(r ApiGetTendersRequest) ([]Tender,
 }
 
 type ApiGetUserBidsRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService *DefaultApiService
-	limit      *int32
-	offset     *int32
-	username   *string
+	limit *int32
+	offset *int32
+	username *string
 }
 
-// Максимальное число возвращаемых объектов. Используется для запросов с пагинацией.  Сервер должен возвращать максимальное допустимое число объектов.
+// Максимальное число возвращаемых объектов. Используется для запросов с пагинацией.  Сервер должен возвращать максимальное допустимое число объектов. 
 func (r ApiGetUserBidsRequest) Limit(limit int32) ApiGetUserBidsRequest {
 	r.limit = &limit
 	return r
 }
 
-// Какое количество объектов должно быть пропущено с начала. Используется для запросов с пагинацией.
+// Какое количество объектов должно быть пропущено с начала. Используется для запросов с пагинацией. 
 func (r ApiGetUserBidsRequest) Offset(offset int32) ApiGetUserBidsRequest {
 	r.offset = &offset
 	return r
@@ -1522,25 +1777,25 @@ GetUserBids Получение списка ваших предложений
 
 Для удобства использования включена поддержка пагинации.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiGetUserBidsRequest
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiGetUserBidsRequest
 */
 func (a *DefaultApiService) GetUserBids(ctx context.Context) ApiGetUserBidsRequest {
 	return ApiGetUserBidsRequest{
 		ApiService: a,
-		ctx:        ctx,
+		ctx: ctx,
 	}
 }
 
 // Execute executes the request
-//
-//	@return []Bid
+//  @return []Bid
 func (a *DefaultApiService) GetUserBidsExecute(r ApiGetUserBidsRequest) ([]Bid, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue []Bid
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  []Bid
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.GetUserBids")
@@ -1638,20 +1893,20 @@ func (a *DefaultApiService) GetUserBidsExecute(r ApiGetUserBidsRequest) ([]Bid, 
 }
 
 type ApiGetUserTendersRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService *DefaultApiService
-	limit      *int32
-	offset     *int32
-	username   *string
+	limit *int32
+	offset *int32
+	username *string
 }
 
-// Максимальное число возвращаемых объектов. Используется для запросов с пагинацией.  Сервер должен возвращать максимальное допустимое число объектов.
+// Максимальное число возвращаемых объектов. Используется для запросов с пагинацией.  Сервер должен возвращать максимальное допустимое число объектов. 
 func (r ApiGetUserTendersRequest) Limit(limit int32) ApiGetUserTendersRequest {
 	r.limit = &limit
 	return r
 }
 
-// Какое количество объектов должно быть пропущено с начала. Используется для запросов с пагинацией.
+// Какое количество объектов должно быть пропущено с начала. Используется для запросов с пагинацией. 
 func (r ApiGetUserTendersRequest) Offset(offset int32) ApiGetUserTendersRequest {
 	r.offset = &offset
 	return r
@@ -1673,25 +1928,25 @@ GetUserTenders Получить тендеры пользователя
 
 Для удобства использования включена поддержка пагинации.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiGetUserTendersRequest
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiGetUserTendersRequest
 */
 func (a *DefaultApiService) GetUserTenders(ctx context.Context) ApiGetUserTendersRequest {
 	return ApiGetUserTendersRequest{
 		ApiService: a,
-		ctx:        ctx,
+		ctx: ctx,
 	}
 }
 
 // Execute executes the request
-//
-//	@return []Tender
+//  @return []Tender
 func (a *DefaultApiService) GetUserTendersExecute(r ApiGetUserTendersRequest) ([]Tender, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue []Tender
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  []Tender
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.GetUserTenders")
@@ -1789,11 +2044,11 @@ func (a *DefaultApiService) GetUserTendersExecute(r ApiGetUserTendersRequest) ([
 }
 
 type ApiRollbackBidRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService *DefaultApiService
-	bidId      string
-	version    int32
-	username   *string
+	bidId string
+	version int32
+	username *string
 }
 
 func (r ApiRollbackBidRequest) Username(username string) ApiRollbackBidRequest {
@@ -1810,29 +2065,28 @@ RollbackBid Откат версии предложения
 
 Откатить параметры предложения к указанной версии. Это считается новой правкой, поэтому версия инкрементируется.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param bidId
-	@param version Номер версии, к которой нужно откатить предложение.
-	@return ApiRollbackBidRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param bidId
+ @param version Номер версии, к которой нужно откатить предложение.
+ @return ApiRollbackBidRequest
 */
 func (a *DefaultApiService) RollbackBid(ctx context.Context, bidId string, version int32) ApiRollbackBidRequest {
 	return ApiRollbackBidRequest{
 		ApiService: a,
-		ctx:        ctx,
-		bidId:      bidId,
-		version:    version,
+		ctx: ctx,
+		bidId: bidId,
+		version: version,
 	}
 }
 
 // Execute executes the request
-//
-//	@return Bid
+//  @return Bid
 func (a *DefaultApiService) RollbackBidExecute(r ApiRollbackBidRequest) (*Bid, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPut
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *Bid
+		localVarHTTPMethod   = http.MethodPut
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *Bid
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.RollbackBid")
@@ -1953,11 +2207,11 @@ func (a *DefaultApiService) RollbackBidExecute(r ApiRollbackBidRequest) (*Bid, *
 }
 
 type ApiRollbackTenderRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService *DefaultApiService
-	tenderId   string
-	version    int32
-	username   *string
+	tenderId string
+	version int32
+	username *string
 }
 
 func (r ApiRollbackTenderRequest) Username(username string) ApiRollbackTenderRequest {
@@ -1974,29 +2228,28 @@ RollbackTender Откат версии тендера
 
 Откатить параметры тендера к указанной версии. Это считается новой правкой, поэтому версия инкрементируется.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param tenderId
-	@param version Номер версии, к которой нужно откатить тендер.
-	@return ApiRollbackTenderRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param tenderId
+ @param version Номер версии, к которой нужно откатить тендер.
+ @return ApiRollbackTenderRequest
 */
 func (a *DefaultApiService) RollbackTender(ctx context.Context, tenderId string, version int32) ApiRollbackTenderRequest {
 	return ApiRollbackTenderRequest{
 		ApiService: a,
-		ctx:        ctx,
-		tenderId:   tenderId,
-		version:    version,
+		ctx: ctx,
+		tenderId: tenderId,
+		version: version,
 	}
 }
 
 // Execute executes the request
-//
-//	@return Tender
+//  @return Tender
 func (a *DefaultApiService) RollbackTenderExecute(r ApiRollbackTenderRequest) (*Tender, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPut
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *Tender
+		localVarHTTPMethod   = http.MethodPut
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *Tender
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.RollbackTender")
@@ -2117,11 +2370,11 @@ func (a *DefaultApiService) RollbackTenderExecute(r ApiRollbackTenderRequest) (*
 }
 
 type ApiSubmitBidDecisionRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService *DefaultApiService
-	bidId      string
-	decision   *BidDecision
-	username   *string
+	bidId string
+	decision *BidDecision
+	username *string
 }
 
 func (r ApiSubmitBidDecisionRequest) Decision(decision BidDecision) ApiSubmitBidDecisionRequest {
@@ -2143,27 +2396,26 @@ SubmitBidDecision Отправка решения по предложению
 
 Отправить решение (одобрить или отклонить) по предложению.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param bidId
-	@return ApiSubmitBidDecisionRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param bidId
+ @return ApiSubmitBidDecisionRequest
 */
 func (a *DefaultApiService) SubmitBidDecision(ctx context.Context, bidId string) ApiSubmitBidDecisionRequest {
 	return ApiSubmitBidDecisionRequest{
 		ApiService: a,
-		ctx:        ctx,
-		bidId:      bidId,
+		ctx: ctx,
+		bidId: bidId,
 	}
 }
 
 // Execute executes the request
-//
-//	@return Bid
+//  @return Bid
 func (a *DefaultApiService) SubmitBidDecisionExecute(r ApiSubmitBidDecisionRequest) (*Bid, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPut
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *Bid
+		localVarHTTPMethod   = http.MethodPut
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *Bid
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.SubmitBidDecision")
@@ -2284,11 +2536,11 @@ func (a *DefaultApiService) SubmitBidDecisionExecute(r ApiSubmitBidDecisionReque
 }
 
 type ApiSubmitBidFeedbackRequest struct {
-	ctx         context.Context
-	ApiService  *DefaultApiService
-	bidId       string
+	ctx context.Context
+	ApiService *DefaultApiService
+	bidId string
 	bidFeedback *string
-	username    *string
+	username *string
 }
 
 func (r ApiSubmitBidFeedbackRequest) BidFeedback(bidFeedback string) ApiSubmitBidFeedbackRequest {
@@ -2310,27 +2562,26 @@ SubmitBidFeedback Отправка отзыва по предложению
 
 Отправить отзыв по предложению.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param bidId
-	@return ApiSubmitBidFeedbackRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param bidId
+ @return ApiSubmitBidFeedbackRequest
 */
 func (a *DefaultApiService) SubmitBidFeedback(ctx context.Context, bidId string) ApiSubmitBidFeedbackRequest {
 	return ApiSubmitBidFeedbackRequest{
 		ApiService: a,
-		ctx:        ctx,
-		bidId:      bidId,
+		ctx: ctx,
+		bidId: bidId,
 	}
 }
 
 // Execute executes the request
-//
-//	@return Bid
+//  @return Bid
 func (a *DefaultApiService) SubmitBidFeedbackExecute(r ApiSubmitBidFeedbackRequest) (*Bid, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPut
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *Bid
+		localVarHTTPMethod   = http.MethodPut
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *Bid
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.SubmitBidFeedback")
@@ -2454,11 +2705,11 @@ func (a *DefaultApiService) SubmitBidFeedbackExecute(r ApiSubmitBidFeedbackReque
 }
 
 type ApiUpdateBidStatusRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService *DefaultApiService
-	bidId      string
-	status     *BidStatus
-	username   *string
+	bidId string
+	status *BidStatus
+	username *string
 }
 
 func (r ApiUpdateBidStatusRequest) Status(status BidStatus) ApiUpdateBidStatusRequest {
@@ -2480,27 +2731,26 @@ UpdateBidStatus Изменение статуса предложения
 
 Изменить статус предложения по его уникальному идентификатору.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param bidId
-	@return ApiUpdateBidStatusRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param bidId
+ @return ApiUpdateBidStatusRequest
 */
 func (a *DefaultApiService) UpdateBidStatus(ctx context.Context, bidId string) ApiUpdateBidStatusRequest {
 	return ApiUpdateBidStatusRequest{
 		ApiService: a,
-		ctx:        ctx,
-		bidId:      bidId,
+		ctx: ctx,
+		bidId: bidId,
 	}
 }
 
 // Execute executes the request
-//
-//	@return Bid
+//  @return Bid
 func (a *DefaultApiService) UpdateBidStatusExecute(r ApiUpdateBidStatusRequest) (*Bid, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPut
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *Bid
+		localVarHTTPMethod   = http.MethodPut
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *Bid
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.UpdateBidStatus")
@@ -2621,11 +2871,11 @@ func (a *DefaultApiService) UpdateBidStatusExecute(r ApiUpdateBidStatusRequest) 
 }
 
 type ApiUpdateTenderStatusRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService *DefaultApiService
-	tenderId   string
-	status     *TenderStatus
-	username   *string
+	tenderId string
+	status *TenderStatus
+	username *string
 }
 
 func (r ApiUpdateTenderStatusRequest) Status(status TenderStatus) ApiUpdateTenderStatusRequest {
@@ -2647,27 +2897,26 @@ UpdateTenderStatus Изменение статуса тендера
 
 Изменить статус тендера по его идентификатору.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param tenderId
-	@return ApiUpdateTenderStatusRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param tenderId
+ @return ApiUpdateTenderStatusRequest
 */
 func (a *DefaultApiService) UpdateTenderStatus(ctx context.Context, tenderId string) ApiUpdateTenderStatusRequest {
 	return ApiUpdateTenderStatusRequest{
 		ApiService: a,
-		ctx:        ctx,
-		tenderId:   tenderId,
+		ctx: ctx,
+		tenderId: tenderId,
 	}
 }
 
 // Execute executes the request
-//
-//	@return Tender
+//  @return Tender
 func (a *DefaultApiService) UpdateTenderStatusExecute(r ApiUpdateTenderStatusRequest) (*Tender, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPut
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *Tender
+		localVarHTTPMethod   = http.MethodPut
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *Tender
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.UpdateTenderStatus")

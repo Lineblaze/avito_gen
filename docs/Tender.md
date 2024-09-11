@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **ServiceType** | [**TenderServiceType**](TenderServiceType.md) |  | 
 **Status** | [**TenderStatus**](TenderStatus.md) |  | 
 **OrganizationId** | **string** | Уникальный идентификатор организации, присвоенный сервером. | 
-**Version** | **int32** | Номер версии посел правок | [default to 1]
+**Version** | **int32** | Номер версии последней правки | [default to 1]
 **CreatedAt** | **string** | Серверная дата и время в момент, когда пользователь отправил тендер на создание. Передается в формате RFC3339.  | 
 
 ## Methods

@@ -1,7 +1,7 @@
 /*
 Tender Management API
 
-API для управления тендерами и предложениями.   Основные функции API включают управление тендерами (создание, изменение, получение списка) и управление предложениями (создание, изменение, получение списка).
+API для управления тендерами и предложениями.   Основные функции API включают управление тендерами (создание, изменение, получение списка) и управление предложениями (создание, изменение, получение списка). 
 
 API version: 1.0
 */
@@ -19,8 +19,8 @@ type CreateBidRequest struct {
 	// Полное название предложения
 	Name string `json:"name"`
 	// Описание предложения
-	Description string    `json:"description"`
-	Status      BidStatus `json:"status"`
+	Description string `json:"description"`
+	Status BidStatus `json:"status"`
 	// Уникальный идентификатор тендера, присвоенный сервером.
 	TenderId string `json:"tenderId"`
 	// Уникальный идентификатор организации, присвоенный сервером.
@@ -254,3 +254,5 @@ func (v *NullableCreateBidRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

@@ -1,7 +1,7 @@
 /*
 Tender Management API
 
-API для управления тендерами и предложениями.   Основные функции API включают управление тендерами (создание, изменение, получение списка) и управление предложениями (создание, изменение, получение списка).
+API для управления тендерами и предложениями.   Основные функции API включают управление тендерами (создание, изменение, получение списка) и управление предложениями (создание, изменение, получение списка). 
 
 API version: 1.0
 */
@@ -20,10 +20,10 @@ type TenderStatus string
 
 // List of tenderStatus
 const (
-	OPEN      TenderStatus = "Open"
-	CREATED   TenderStatus = "Created"
+	OPEN TenderStatus = "Open"
+	CREATED TenderStatus = "Created"
 	PUBLISHED TenderStatus = "Published"
-	CLOSED    TenderStatus = "Closed"
+	CLOSED TenderStatus = "Closed"
 )
 
 // All allowed values of TenderStatus enum
@@ -112,3 +112,4 @@ func (v *NullableTenderStatus) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+

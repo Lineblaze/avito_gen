@@ -6,6 +6,8 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**CheckServer**](DefaultApi.md#CheckServer) | **Get** /ping | Проверка доступности сервера
 [**CreateBid**](DefaultApi.md#CreateBid) | **Post** /bids/new | Создание нового предложения
+[**CreateEmployee**](DefaultApi.md#CreateEmployee) | **Post** /employeee/new | Создание нового пользователя
+[**CreateOrganization**](DefaultApi.md#CreateOrganization) | **Post** /organization/new | Создание новой организации
 [**CreateTender**](DefaultApi.md#CreateTender) | **Post** /tenders/new | Создание нового тендера
 [**EditBid**](DefaultApi.md#EditBid) | **Patch** /bids/{bidId}/edit | Редактирование параметров предложения
 [**EditTender**](DefaultApi.md#EditTender) | **Patch** /tenders/{tenderId}/edit | Редактирование тендера
@@ -152,6 +154,138 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
+## CreateEmployee
+
+> Employee CreateEmployee(ctx).CreateEmployeeRequest(createEmployeeRequest).Execute()
+
+Создание нового пользователя
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    createEmployeeRequest := *openapiclient.NewCreateEmployeeRequest("test_user") // CreateEmployeeRequest | Данные нового пользователя.
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.DefaultApi.CreateEmployee(context.Background()).CreateEmployeeRequest(createEmployeeRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.CreateEmployee``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `CreateEmployee`: Employee
+    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.CreateEmployee`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiCreateEmployeeRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **createEmployeeRequest** | [**CreateEmployeeRequest**](CreateEmployeeRequest.md) | Данные нового пользователя. | 
+
+### Return type
+
+[**Employee**](Employee.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## CreateOrganization
+
+> Organization CreateOrganization(ctx).CreateOrganizationRequest(createOrganizationRequest).Execute()
+
+Создание новой организации
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    createOrganizationRequest := *openapiclient.NewCreateOrganizationRequest("test_organization", "test_description", openapiclient.organizationType("IE")) // CreateOrganizationRequest | Данные нового  новой организации.
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.DefaultApi.CreateOrganization(context.Background()).CreateOrganizationRequest(createOrganizationRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.CreateOrganization``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `CreateOrganization`: Organization
+    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.CreateOrganization`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiCreateOrganizationRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **createOrganizationRequest** | [**CreateOrganizationRequest**](CreateOrganizationRequest.md) | Данные нового  новой организации. | 
+
+### Return type
+
+[**Organization**](Organization.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## CreateTender
 
 > Tender CreateTender(ctx).CreateTenderRequest(createTenderRequest).Execute()
@@ -173,7 +307,7 @@ import (
 )
 
 func main() {
-    createTenderRequest := *openapiclient.NewCreateTenderRequest("Name_example", "Description_example", openapiclient.tenderServiceType("Construction"), openapiclient.tenderStatus("Created"), "550e8400-e29b-41d4-a716-446655440000", "test_user") // CreateTenderRequest | Данные нового тендера.
+    createTenderRequest := *openapiclient.NewCreateTenderRequest("Name_example", "Description_example", openapiclient.tenderServiceType("Construction"), openapiclient.tenderStatus("Open"), "550e8400-e29b-41d4-a716-446655440000", "test_user") // CreateTenderRequest | Данные нового тендера.
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
@@ -1268,7 +1402,7 @@ import (
 
 func main() {
     tenderId := "tenderId_example" // string | 
-    status := openapiclient.tenderStatus("Created") // TenderStatus | 
+    status := openapiclient.tenderStatus("Open") // TenderStatus | 
     username := "username_example" // string | 
 
     configuration := openapiclient.NewConfiguration()

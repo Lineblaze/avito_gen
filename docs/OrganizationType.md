@@ -1,15 +1,13 @@
-# TenderStatus
+# OrganizationType
 
 ## Enum
 
 
-* `OPEN` (value: `"Open"`)
+* `IE` (value: `"IE"`)
 
-* `CREATED` (value: `"Created"`)
+* `LLC` (value: `"LLC"`)
 
-* `PUBLISHED` (value: `"Published"`)
-
-* `CLOSED` (value: `"Closed"`)
+* `JSC` (value: `"JSC"`)
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

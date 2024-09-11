@@ -83,6 +83,8 @@ Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 *DefaultApi* | [**CheckServer**](docs/DefaultApi.md#checkserver) | **Get** /ping | Проверка доступности сервера
 *DefaultApi* | [**CreateBid**](docs/DefaultApi.md#createbid) | **Post** /bids/new | Создание нового предложения
+*DefaultApi* | [**CreateEmployee**](docs/DefaultApi.md#createemployee) | **Post** /employeee/new | Создание нового пользователя
+*DefaultApi* | [**CreateOrganization**](docs/DefaultApi.md#createorganization) | **Post** /organization/new | Создание новой организации
 *DefaultApi* | [**CreateTender**](docs/DefaultApi.md#createtender) | **Post** /tenders/new | Создание нового тендера
 *DefaultApi* | [**EditBid**](docs/DefaultApi.md#editbid) | **Patch** /bids/{bidId}/edit | Редактирование параметров предложения
 *DefaultApi* | [**EditTender**](docs/DefaultApi.md#edittender) | **Patch** /tenders/{tenderId}/edit | Редактирование тендера
@@ -109,10 +111,15 @@ Class | Method | HTTP request | Description
  - [BidReview](docs/BidReview.md)
  - [BidStatus](docs/BidStatus.md)
  - [CreateBidRequest](docs/CreateBidRequest.md)
+ - [CreateEmployeeRequest](docs/CreateEmployeeRequest.md)
+ - [CreateOrganizationRequest](docs/CreateOrganizationRequest.md)
  - [CreateTenderRequest](docs/CreateTenderRequest.md)
  - [EditBidRequest](docs/EditBidRequest.md)
  - [EditTenderRequest](docs/EditTenderRequest.md)
+ - [Employee](docs/Employee.md)
  - [ErrorResponse](docs/ErrorResponse.md)
+ - [Organization](docs/Organization.md)
+ - [OrganizationType](docs/OrganizationType.md)
  - [Tender](docs/Tender.md)
  - [TenderServiceType](docs/TenderServiceType.md)
  - [TenderStatus](docs/TenderStatus.md)

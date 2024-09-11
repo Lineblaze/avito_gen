@@ -1,7 +1,7 @@
 /*
 Tender Management API
 
-API для управления тендерами и предложениями.   Основные функции API включают управление тендерами (создание, изменение, получение списка) и управление предложениями (создание, изменение, получение списка).
+API для управления тендерами и предложениями.   Основные функции API включают управление тендерами (создание, изменение, получение списка) и управление предложениями (создание, изменение, получение списка). 
 
 API version: 1.0
 */
@@ -21,8 +21,8 @@ type TenderServiceType string
 // List of tenderServiceType
 const (
 	CONSTRUCTION TenderServiceType = "Construction"
-	DELIVERY     TenderServiceType = "Delivery"
-	MANUFACTURE  TenderServiceType = "Manufacture"
+	DELIVERY TenderServiceType = "Delivery"
+	MANUFACTURE TenderServiceType = "Manufacture"
 )
 
 // All allowed values of TenderServiceType enum
@@ -110,3 +110,4 @@ func (v *NullableTenderServiceType) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
