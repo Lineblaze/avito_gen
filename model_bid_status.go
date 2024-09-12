@@ -31,6 +31,8 @@ const (
 
 // All allowed values of BidStatus enum
 var AllowedBidStatusEnumValues = []BidStatus{
+	"Open",
+	"Submitted",
 	"Created",
 	"Published",
 	"Canceled",
