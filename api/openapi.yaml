@@ -750,31 +750,32 @@ paths:
       security:
       - bearerAuth: []
       summary: Получение текущего статуса предложения
+  /bids/{bidId}/status/{bidId}:
     put:
       description: Изменить статус предложения по его уникальному идентификатору.
       operationId: updateBidStatus
       parameters:
-      - explode: false
-        in: path
-        name: bidId
-        required: true
-        schema:
-          $ref: '#/components/schemas/bidId'
-        style: simple
-      - explode: true
-        in: query
-        name: status
-        required: true
-        schema:
-          $ref: '#/components/schemas/bidStatus'
-        style: form
-      - explode: true
-        in: query
-        name: username
-        required: true
-        schema:
-          $ref: '#/components/schemas/username'
-        style: form
+        - explode: false
+          in: path
+          name: bidId
+          required: true
+          schema:
+            $ref: '#/components/schemas/bidId'
+          style: simple
+        - explode: true
+          in: query
+          name: status
+          required: true
+          schema:
+            $ref: '#/components/schemas/bidStatus'
+          style: form
+        - explode: true
+          in: query
+          name: username
+          required: true
+          schema:
+            $ref: '#/components/schemas/username'
+          style: form
       responses:
         "200":
           content:
@@ -810,7 +811,7 @@ paths:
           description: "Сервер не готов обрабатывать запросы, если ответ статусом\
             \ 500 или любой другой, кроме 200."
       security:
-      - bearerAuth: []
+        - bearerAuth: [ ]
       summary: Изменение статуса предложения
   /bids/{bidId}/edit:
     patch:
