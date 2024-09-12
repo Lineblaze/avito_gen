@@ -1407,6 +1407,8 @@ components:
     bidStatus:
       description: Статус предложения
       enum:
+      - Open
+      - Submitted
       - Created
       - Published
       - Canceled
