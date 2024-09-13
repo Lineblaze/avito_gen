@@ -1,4 +1,4 @@
-module github.com/Lineblaze/gen_avito
+module github.com/Lineblaze/gen
 
 go 1.13
 
