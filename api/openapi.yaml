@@ -1353,6 +1353,10 @@ components:
         organizationId: 874fdc00-8bb4-4423-894e-01a6a3937883
         userId: ea35e012-cc15-4d94-a0ec-d83a96eb5540
       properties:
+        Id:
+          description: Уникальный slug cвязи.
+          example: 8bef55db-3ab2-490f-829d-58c067a7c5a7
+          type: string
         organizationId:
           description: Уникальный slug организации.
           example: 874fdc00-8bb4-4423-894e-01a6a3937883
