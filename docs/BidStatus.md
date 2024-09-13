@@ -3,6 +3,10 @@
 ## Enum
 
 
+* `OPEN` (value: `"Open"`)
+
+* `SUBMITTED` (value: `"Submitted"`)
+
 * `CREATED` (value: `"Created"`)
 
 * `PUBLISHED` (value: `"Published"`)

@@ -4,6 +4,7 @@ All URIs are relative to *http://localhost:8080/api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**AssignEmployeeToOrganization**](DefaultApi.md#AssignEmployeeToOrganization) | **Post** /assign | Присвоение пользователя к организации
 [**CheckServer**](DefaultApi.md#CheckServer) | **Get** /ping | Проверка доступности сервера
 [**CreateBid**](DefaultApi.md#CreateBid) | **Post** /bids/new | Создание нового предложения
 [**CreateEmployee**](DefaultApi.md#CreateEmployee) | **Post** /employeee/new | Создание нового пользователя
@@ -22,9 +23,75 @@ Method | HTTP request | Description
 [**RollbackTender**](DefaultApi.md#RollbackTender) | **Put** /tenders/{tenderId}/rollback/{version} | Откат версии тендера
 [**SubmitBidDecision**](DefaultApi.md#SubmitBidDecision) | **Put** /bids/{bidId}/submit_decision | Отправка решения по предложению
 [**SubmitBidFeedback**](DefaultApi.md#SubmitBidFeedback) | **Put** /bids/{bidId}/feedback | Отправка отзыва по предложению
-[**UpdateBidStatus**](DefaultApi.md#UpdateBidStatus) | **Put** /bids/{bidId}/status | Изменение статуса предложения
+[**UpdateBidStatus**](DefaultApi.md#UpdateBidStatus) | **Put** /bids/{bidId}/status/{bidId} | Изменение статуса предложения
 [**UpdateTenderStatus**](DefaultApi.md#UpdateTenderStatus) | **Put** /tenders/{tenderId}/status | Изменение статуса тендера
 
+
+
+## AssignEmployeeToOrganization
+
+> OrganizationResponsible AssignEmployeeToOrganization(ctx).AssignEmployeeToOrganizationRequest(assignEmployeeToOrganizationRequest).Execute()
+
+Присвоение пользователя к организации
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    assignEmployeeToOrganizationRequest := *openapiclient.NewAssignEmployeeToOrganizationRequest("874fdc00-8bb4-4423-894e-01a6a3937883", "ea35e012-cc15-4d94-a0ec-d83a96eb5540") // AssignEmployeeToOrganizationRequest | Данные для присвоения.
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.DefaultApi.AssignEmployeeToOrganization(context.Background()).AssignEmployeeToOrganizationRequest(assignEmployeeToOrganizationRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.AssignEmployeeToOrganization``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `AssignEmployeeToOrganization`: OrganizationResponsible
+    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.AssignEmployeeToOrganization`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiAssignEmployeeToOrganizationRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **assignEmployeeToOrganizationRequest** | [**AssignEmployeeToOrganizationRequest**](AssignEmployeeToOrganizationRequest.md) | Данные для присвоения. | 
+
+### Return type
+
+[**OrganizationResponsible**](OrganizationResponsible.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
 
 ## CheckServer
@@ -109,7 +176,7 @@ import (
 )
 
 func main() {
-    createBidRequest := *openapiclient.NewCreateBidRequest("Name_example", "Description_example", openapiclient.bidStatus("Created"), "550e8400-e29b-41d4-a716-446655440000", "550e8400-e29b-41d4-a716-446655440000", "test_user") // CreateBidRequest | Данные нового предложения.
+    createBidRequest := *openapiclient.NewCreateBidRequest("Name_example", "Description_example", openapiclient.bidStatus("Open"), "550e8400-e29b-41d4-a716-446655440000", "550e8400-e29b-41d4-a716-446655440000", "test_user") // CreateBidRequest | Данные нового предложения.
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
@@ -1328,7 +1395,7 @@ import (
 
 func main() {
     bidId := "bidId_example" // string | 
-    status := openapiclient.bidStatus("Created") // BidStatus | 
+    status := openapiclient.bidStatus("Open") // BidStatus | 
     username := "username_example" // string | 
 
     configuration := openapiclient.NewConfiguration()

@@ -81,6 +81,7 @@ All URIs are relative to *http://localhost:8080/api*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
+*DefaultApi* | [**AssignEmployeeToOrganization**](docs/DefaultApi.md#assignemployeetoorganization) | **Post** /assign | Присвоение пользователя к организации
 *DefaultApi* | [**CheckServer**](docs/DefaultApi.md#checkserver) | **Get** /ping | Проверка доступности сервера
 *DefaultApi* | [**CreateBid**](docs/DefaultApi.md#createbid) | **Post** /bids/new | Создание нового предложения
 *DefaultApi* | [**CreateEmployee**](docs/DefaultApi.md#createemployee) | **Post** /employeee/new | Создание нового пользователя
@@ -99,12 +100,13 @@ Class | Method | HTTP request | Description
 *DefaultApi* | [**RollbackTender**](docs/DefaultApi.md#rollbacktender) | **Put** /tenders/{tenderId}/rollback/{version} | Откат версии тендера
 *DefaultApi* | [**SubmitBidDecision**](docs/DefaultApi.md#submitbiddecision) | **Put** /bids/{bidId}/submit_decision | Отправка решения по предложению
 *DefaultApi* | [**SubmitBidFeedback**](docs/DefaultApi.md#submitbidfeedback) | **Put** /bids/{bidId}/feedback | Отправка отзыва по предложению
-*DefaultApi* | [**UpdateBidStatus**](docs/DefaultApi.md#updatebidstatus) | **Put** /bids/{bidId}/status | Изменение статуса предложения
+*DefaultApi* | [**UpdateBidStatus**](docs/DefaultApi.md#updatebidstatus) | **Put** /bids/{bidId}/status/{bidId} | Изменение статуса предложения
 *DefaultApi* | [**UpdateTenderStatus**](docs/DefaultApi.md#updatetenderstatus) | **Put** /tenders/{tenderId}/status | Изменение статуса тендера
 
 
 ## Documentation For Models
 
+ - [AssignEmployeeToOrganizationRequest](docs/AssignEmployeeToOrganizationRequest.md)
  - [Bid](docs/Bid.md)
  - [BidAuthorType](docs/BidAuthorType.md)
  - [BidDecision](docs/BidDecision.md)
@@ -119,6 +121,7 @@ Class | Method | HTTP request | Description
  - [Employee](docs/Employee.md)
  - [ErrorResponse](docs/ErrorResponse.md)
  - [Organization](docs/Organization.md)
+ - [OrganizationResponsible](docs/OrganizationResponsible.md)
  - [OrganizationType](docs/OrganizationType.md)
  - [Tender](docs/Tender.md)
  - [TenderServiceType](docs/TenderServiceType.md)

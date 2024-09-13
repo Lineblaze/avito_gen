@@ -109,6 +109,37 @@ paths:
       security:
       - bearerAuth: []
       summary: Создание новой организации
+  /assign:
+    post:
+      description: Присвоение пользователя к организации.
+      operationId: assignEmployeeToOrganization
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/assignEmployeeToOrganization_request'
+        description: Данные для присвоения.
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/organizationResponsible'
+          description: Пользователь успешно привязан к организации. Сервер присваивает
+            уникальный идентификатор.
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+          description: Неверный формат запроса или его параметры.
+        "500":
+          description: "Сервер не готов обрабатывать запросы, если ответ статусом\
+            \ 500 или любой другой, кроме 200."
+      security:
+      - bearerAuth: []
+      summary: Присвоение пользователя к организации
   /tenders:
     get:
       description: |
@@ -755,27 +786,27 @@ paths:
       description: Изменить статус предложения по его уникальному идентификатору.
       operationId: updateBidStatus
       parameters:
-        - explode: false
-          in: path
-          name: bidId
-          required: true
-          schema:
-            $ref: '#/components/schemas/bidId'
-          style: simple
-        - explode: true
-          in: query
-          name: status
-          required: true
-          schema:
-            $ref: '#/components/schemas/bidStatus'
-          style: form
-        - explode: true
-          in: query
-          name: username
-          required: true
-          schema:
-            $ref: '#/components/schemas/username'
-          style: form
+      - explode: false
+        in: path
+        name: bidId
+        required: true
+        schema:
+          $ref: '#/components/schemas/bidId'
+        style: simple
+      - explode: true
+        in: query
+        name: status
+        required: true
+        schema:
+          $ref: '#/components/schemas/bidStatus'
+        style: form
+      - explode: true
+        in: query
+        name: username
+        required: true
+        schema:
+          $ref: '#/components/schemas/username'
+        style: form
       responses:
         "200":
           content:
@@ -811,7 +842,7 @@ paths:
           description: "Сервер не готов обрабатывать запросы, если ответ статусом\
             \ 500 или любой другой, кроме 200."
       security:
-        - bearerAuth: [ ]
+      - bearerAuth: []
       summary: Изменение статуса предложения
   /bids/{bidId}/edit:
     patch:
@@ -1315,6 +1346,26 @@ components:
       - name
       - type
       type: object
+    organizationResponsible:
+      description: Связь пользователя и организации
+      example:
+        id: 8bef55db-3ab2-490f-829d-58c067a7c5a7
+        organizationId: 874fdc00-8bb4-4423-894e-01a6a3937883
+        userId: ea35e012-cc15-4d94-a0ec-d83a96eb5540
+      properties:
+        organizationId:
+          description: Уникальный slug организации.
+          example: 874fdc00-8bb4-4423-894e-01a6a3937883
+          type: string
+        userId:
+          description: Уникальный slug пользователя.
+          example: ea35e012-cc15-4d94-a0ec-d83a96eb5540
+          type: string
+      required:
+      - id
+      - organizationId
+      - userId
+      type: object
     tenderStatus:
       description: Статус тендер
       enum:
@@ -1593,6 +1644,21 @@ components:
       - description
       - name
       - type
+      type: object
+    assignEmployeeToOrganization_request:
+      properties:
+        organizationId:
+          description: Уникальный slug организации.
+          example: 874fdc00-8bb4-4423-894e-01a6a3937883
+          type: string
+        userId:
+          description: Уникальный slug пользователя.
+          example: ea35e012-cc15-4d94-a0ec-d83a96eb5540
+          type: string
+      required:
+      - id
+      - organizationId
+      - userId
       type: object
     createTender_request:
       properties:
