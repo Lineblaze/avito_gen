@@ -1,7 +1,7 @@
 /*
 Tender Management API
 
-API для управления тендерами и предложениями.   Основные функции API включают управление тендерами (создание, изменение, получение списка) и управление предложениями (создание, изменение, получение списка). 
+API для управления тендерами и предложениями.   Основные функции API включают управление тендерами (создание, изменение, получение списка) и управление предложениями (создание, изменение, получение списка).
 
 API version: 1.0
 */
@@ -18,6 +18,10 @@ import (
 type CreateEmployeeRequest struct {
 	// Уникальный slug пользователя.
 	Username string `json:"username"`
+	// Имя пользователя.
+	Firstname *string `json:"firstname,omitempty"`
+	// Фамилия пользователя.
+	Lastname *string `json:"lastname,omitempty"`
 }
 
 // NewCreateEmployeeRequest instantiates a new CreateEmployeeRequest object
@@ -62,10 +66,80 @@ func (o *CreateEmployeeRequest) SetUsername(v string) {
 	o.Username = v
 }
 
+// GetFirstname returns the Firstname field value if set, zero value otherwise.
+func (o *CreateEmployeeRequest) GetFirstname() string {
+	if o == nil || o.Firstname == nil {
+		var ret string
+		return ret
+	}
+	return *o.Firstname
+}
+
+// GetFirstnameOk returns a tuple with the Firstname field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CreateEmployeeRequest) GetFirstnameOk() (*string, bool) {
+	if o == nil || o.Firstname == nil {
+		return nil, false
+	}
+	return o.Firstname, true
+}
+
+// HasFirstname returns a boolean if a field has been set.
+func (o *CreateEmployeeRequest) HasFirstname() bool {
+	if o != nil && o.Firstname != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetFirstname gets a reference to the given string and assigns it to the Firstname field.
+func (o *CreateEmployeeRequest) SetFirstname(v string) {
+	o.Firstname = &v
+}
+
+// GetLastname returns the Lastname field value if set, zero value otherwise.
+func (o *CreateEmployeeRequest) GetLastname() string {
+	if o == nil || o.Lastname == nil {
+		var ret string
+		return ret
+	}
+	return *o.Lastname
+}
+
+// GetLastnameOk returns a tuple with the Lastname field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CreateEmployeeRequest) GetLastnameOk() (*string, bool) {
+	if o == nil || o.Lastname == nil {
+		return nil, false
+	}
+	return o.Lastname, true
+}
+
+// HasLastname returns a boolean if a field has been set.
+func (o *CreateEmployeeRequest) HasLastname() bool {
+	if o != nil && o.Lastname != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetLastname gets a reference to the given string and assigns it to the Lastname field.
+func (o *CreateEmployeeRequest) SetLastname(v string) {
+	o.Lastname = &v
+}
+
 func (o CreateEmployeeRequest) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
 		toSerialize["username"] = o.Username
+	}
+	if o.Firstname != nil {
+		toSerialize["firstname"] = o.Firstname
+	}
+	if o.Lastname != nil {
+		toSerialize["lastname"] = o.Lastname
 	}
 	return json.Marshal(toSerialize)
 }
@@ -105,5 +179,3 @@ func (v *NullableCreateEmployeeRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

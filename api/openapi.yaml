@@ -1629,6 +1629,14 @@ components:
           description: Уникальный slug пользователя.
           example: test_user
           type: string
+        firstname:
+          description: Имя пользователя.
+          example: test_user
+          type: string
+        lastname:
+          description: Фамилия пользователя.
+          example: test_lastname
+          type: string
       required:
       - username
       type: object
